@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+requests
+numpy
+rasterio
+python-dotenv
+sentinelhub
+google-genai
+pydantic
+
