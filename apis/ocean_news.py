@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List
 from datetime import datetime, date
 from google import genai
@@ -20,6 +21,15 @@ config = types.GenerateContentConfig(
 )
 
 app = FastAPI(title="Ocean News Agentic API")
+
+# Allow CORS on the sub-app (adjust allow_origins for production)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def fetch_gemini_news(region: Optional[str] = None, max_articles: int = 20):
     """

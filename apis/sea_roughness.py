@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
 import os
@@ -8,6 +9,15 @@ from sentinelhub import SHConfig, SentinelHubRequest, MimeType, CRS, BBox, DataC
 
 app = FastAPI()
 load_dotenv()
+
+# Allow CORS on the sub-app (adjust allow_origins for production)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 CLIENT_ID = os.getenv("CDSE_CLIENT_ID")
 CLIENT_SECRET = os.getenv("CDSE_CLIENT_SECRET")
